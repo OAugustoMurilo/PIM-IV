@@ -1,8 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { of } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
 
 import { ApiService } from '../core/services/api.service';
+import { AuthService } from '../core/services/auth.service';
 
 interface ApiStatusResponse {
   message?: string;
@@ -19,10 +21,18 @@ export class HomePage {
   loading = false;
   statusMessage = '';
   errorMessage = '';
+  lastCheckedAt: Date | null = null;
 
   private readonly apiService = inject(ApiService);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   loadStatus(): void {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login'], { replaceUrl: true });
+      return;
+    }
+
     this.loading = true;
     this.errorMessage = '';
     this.statusMessage = '';
@@ -32,6 +42,7 @@ export class HomePage {
       .pipe(
         tap((response) => {
           this.statusMessage = response?.message ?? 'API respondeu com sucesso.';
+          this.lastCheckedAt = new Date();
         }),
         catchError((error) => {
           const details = error?.error?.message ? ` Detalhes: ${error.error.message}` : '';
@@ -43,5 +54,27 @@ export class HomePage {
         })
       )
       .subscribe();
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login'], { replaceUrl: true });
+  }
+
+  get tokenPreview(): string | null {
+    const token = this.authService.getToken();
+    if (!token) {
+      return null;
+    }
+
+    if (token.length <= 14) {
+      return token;
+    }
+
+    return `${token.slice(0, 6)}...${token.slice(-4)}`;
+  }
+
+  get isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
   }
 }

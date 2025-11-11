@@ -1,0 +1,65 @@
+<ion-content class="ion-padding">
+  <div class="login-wrapper">
+    <ion-card class="login-card">
+      <ion-card-header>
+        <ion-card-title>NexHelp</ion-card-title>
+        <ion-card-subtitle>Faça login para continuar</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+          <ion-item fill="outline" class="form-item">
+            <ion-label position="stacked">E-mail</ion-label>
+            <ion-input
+              formControlName="email"
+              type="email"
+              autocomplete="email"
+              inputmode="email"
+              placeholder="voce@empresa.com"
+            ></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="hasError('email', 'required')">
+            <small>E-mail é obrigatório.</small>
+          </ion-text>
+          <ion-text color="danger" *ngIf="hasError('email', 'email')">
+            <small>Informe um e-mail válido.</small>
+          </ion-text>
+
+          <ion-item fill="outline" class="form-item password-item">
+            <ion-label position="stacked">Senha</ion-label>
+            <ion-input
+              formControlName="password"
+              [type]="passwordVisible() ? 'text' : 'password'"
+              autocomplete="current-password"
+              placeholder="Sua senha"
+            ></ion-input>
+            <ion-button fill="clear" class="toggle-password" (click)="togglePasswordVisibility()" type="button">
+              <ion-icon slot="icon-only" [name]="passwordVisible() ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <ion-text color="danger" *ngIf="hasError('password', 'required')">
+            <small>Senha é obrigatória.</small>
+          </ion-text>
+          <ion-text color="danger" *ngIf="hasError('password', 'minlength')">
+            <small>A senha deve ter pelo menos 6 caracteres.</small>
+          </ion-text>
+
+          <ion-note color="danger" *ngIf="errorMessage()" class="feedback">
+            {{ errorMessage() }}
+          </ion-note>
+
+          <ion-button
+            expand="block"
+            type="submit"
+            color="primary"
+            class="submit-button"
+            [disabled]="form.invalid || loading()"
+          >
+            <ion-spinner *ngIf="loading()" name="crescent"></ion-spinner>
+            <span *ngIf="!loading()">{{ buttonLabel() }}</span>
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

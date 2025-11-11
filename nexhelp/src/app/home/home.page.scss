@@ -2,32 +2,85 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 2.5rem 2rem;
-  text-align: center;
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 5vw, 2.5rem) 4rem;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
-.hero h1 {
-  font-size: 2rem;
-  font-weight: 600;
+.hero__header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hero__header h1 {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-weight: 700;
   margin: 0;
 }
 
-.hero p {
+.hero__header p {
   color: var(--ion-color-medium);
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.6;
+}
+
+ion-chip {
+  align-self: center;
+}
+
+ion-text {
+  text-align: center;
 }
 
 ion-button {
   align-self: center;
-  min-width: 240px;
+  width: min(100%, 320px);
+  height: 3rem;
+  font-weight: 600;
 }
 
-ion-card {
-  text-align: left;
+.status-card,
+.info-card {
+  width: 100%;
 }
 
-ion-card-content.error {
+.status-card ion-card-content.error {
   color: var(--ion-color-danger);
   font-weight: 500;
+}
+
+.info-card ion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info-card ion-item {
+  --inner-padding-end: 0;
+  align-items: flex-start;
+}
+
+.info-card ion-icon {
+  margin-top: 0.25rem;
+  color: var(--ion-color-primary);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    text-align: left;
+  }
+
+  .hero__header {
+    text-align: left;
+  }
+
+  ion-text {
+    text-align: left;
+  }
+
+  ion-button {
+    align-self: flex-start;
+  }
 }
