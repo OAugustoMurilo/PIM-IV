@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>NexHelp</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">NexHelp</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="hero">
+    <h1>Bem-vindo ao NexHelp</h1>
+    <p>
+      Configure o endereço da API em <code>environment.ts</code> e utilize o botão abaixo
+      para testar a comunicação com o backend em C#.
+    </p>
+
+    <ion-button color="primary" (click)="loadStatus()" [disabled]="loading">
+      <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+      <span *ngIf="!loading">Testar conexão com a API</span>
+    </ion-button>
+
+    <ion-card *ngIf="statusMessage || errorMessage">
+      <ion-card-header>
+        <ion-card-title>
+          {{ errorMessage ? 'Status da API' : 'Conexão realizada' }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content [class.error]="errorMessage">
+        {{ errorMessage || statusMessage }}
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

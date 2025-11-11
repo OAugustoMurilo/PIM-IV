@@ -1,5 +1,5 @@
 {
-  "name": "my-mobile-app",
+  "name": "nexhelp",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -54,5 +54,5 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.8.0"
   },
-  "description": "An Ionic project"
+  "description": "Aplicativo móvel Ionic + Angular para o projeto NexHelp"
 }

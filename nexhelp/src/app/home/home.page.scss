@@ -1,0 +1,33 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.hero p {
+  color: var(--ion-color-medium);
+  margin: 0;
+  line-height: 1.5;
+}
+
+ion-button {
+  align-self: center;
+  min-width: 240px;
+}
+
+ion-card {
+  text-align: left;
+}
+
+ion-card-content.error {
+  color: var(--ion-color-danger);
+  font-weight: 500;
+}
